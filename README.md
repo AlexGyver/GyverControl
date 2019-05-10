@@ -1,5 +1,5 @@
 ![PROJECT_PHOTO](https://github.com/AlexGyver/gyverControl/blob/master/proj_img.jpg)
-# Метеостанция на Arduino
+# Универсальный контроллер умной теплицы
 * [Описание проекта](#chapter-0)
 * [Папки проекта](#chapter-1)
 * [Схемы подключения](#chapter-2)
