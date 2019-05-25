@@ -120,21 +120,23 @@ void timersTick() {   // каждую секунду
                 }
               }
             } else {                                                                // если часовые периоды
-              if (channelStates[curChannel] != channels[curChannel].direction) {    // если ВЫКЛЮЧЕН
-                byte waterTime = channels[curChannel].startHour;                    // начало проверки времени со стартового часа
-                for (byte j = 0; j < 24 / impulsePrds[channels[curChannel].impulsePrd]; j++) {
-                  if (waterTime < 24) {
-                    if (realTime[0] == waterTime) {
-                      channelStates[curChannel] = channels[curChannel].direction;   // ВКЛЮЧАЕМ
-                      timerMillis[curChannel] = millis();                           // взводим таймер
+              if (realTime[1] == 0) {                                               // проверка в первую минуту часа!
+                if (channelStates[curChannel] != channels[curChannel].direction) {    // если ВЫКЛЮЧЕН
+                  byte waterTime = channels[curChannel].startHour;                    // начало проверки времени со стартового часа
+                  for (byte j = 0; j < 24 / impulsePrds[channels[curChannel].impulsePrd]; j++) {
+                    if (waterTime < 24) {
+                      if (realTime[0] == waterTime) {
+                        channelStates[curChannel] = channels[curChannel].direction;   // ВКЛЮЧАЕМ
+                        timerMillis[curChannel] = millis();                           // взводим таймер
+                      }
+                    } else {
+                      if (realTime[0] == waterTime - 24) {
+                        channelStates[curChannel] = channels[curChannel].direction;   // ВКЛЮЧАЕМ
+                        timerMillis[curChannel] = millis();                           // взводим таймер
+                      }
                     }
-                  } else {
-                    if (realTime[0] == waterTime - 24) {
-                      channelStates[curChannel] = channels[curChannel].direction;   // ВКЛЮЧАЕМ
-                      timerMillis[curChannel] = millis();                           // взводим таймер
-                    }
+                    waterTime += impulsePrds[channels[curChannel].impulsePrd];
                   }
-                  waterTime += impulsePrds[channels[curChannel].impulsePrd];
                 }
               }
             }
