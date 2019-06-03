@@ -1,4 +1,5 @@
 void drawPlot(byte pos, byte row, byte width, byte height, int min_val, int max_val, int *plot_array) {
+#if (PLOTS == 1)
   int max_value = -32000;
   int min_value = 32000;
 
@@ -39,9 +40,11 @@ void drawPlot(byte pos, byte row, byte width, byte height, int min_val, int max_
       }
     }
   }
+#endif
 }
 
 void redrawPlot() {
+#if (PLOTS == 1)
   lcd.setCursor(1, 0);
   switch (debugPage) {
     case 1: lcd.print(F("TEMP"));
@@ -79,6 +82,7 @@ void redrawPlot() {
 #endif
       break;
   }
+#endif
 }
 
 void redrawChannels() {
@@ -246,12 +250,14 @@ void redrawSettings() {
         }
         break;
       case 4:
+#if (USE_PID == 1)
         lcd.setCursor(0, 1);
         lcd.print(F("P:")); lcd.print(PID[curPWMchannel].kP, 1);
         lcd.setCursor(7, 1);
         lcd.print(F("I:")); lcd.print(PID[curPWMchannel].kI, 1);
         lcd.setCursor(14, 1);
         lcd.print(F("D:")); lcd.print(PID[curPWMchannel].kD, 1);
+#endif
         break;
       case 5:
         lcd.setCursor(0, 1);
@@ -301,10 +307,12 @@ void redrawSettings() {
         lcd.print(sensorVals[channels[currentChannel].sensor]);
         break;
       case 4:
+#if (USE_PID == 1)
         lcd.setCursor(0, 2);
         lcd.print("Sens:"); lcd.print(sensorNames[PID[curPWMchannel].sensor]);
         lcd.setCursor(13, 2);
         lcd.print("set:"); lcd.print(PID[curPWMchannel].setpoint);
+#endif
         break;
       case 5:
         lcd.setCursor(0, 2);
@@ -340,9 +348,9 @@ void redrawSettings() {
         lcd.print(channels[currentChannel].startHour);
         lcd.print(F(" h "));
         break;
-      case 2: lcd.print("Sensor: ");
-        if (channels[currentChannel].sensorDay) lcd.print("On ");
-        else lcd.print("Off");
+      case 2: lcd.print("Global: ");
+        if (channels[currentChannel].global) lcd.print("yes");
+        else lcd.print("no ");
         break;
       case 3:
         lcd.print("minV:");
@@ -352,6 +360,7 @@ void redrawSettings() {
         lcd.print(channels[currentChannel].thresholdMax);
         break;
       case 4:
+#if (USE_PID == 1)
         lcd.setCursor(0, 3);
         lcd.print(F("T:")); lcd.print(PID[curPWMchannel].dT);
         if (PID[curPWMchannel].dT < 10) lcd.print("  ");
@@ -367,7 +376,7 @@ void redrawSettings() {
           lcd.print(F("max:")); lcd.print(PID[curPWMchannel].maxSignal);
           if (PID[curPWMchannel].maxSignal < 100) lcd.print(" ");
         }
-
+#endif
         break;
       case 5:
         lcd.setCursor(0, 3);
@@ -433,7 +442,10 @@ void redrawDebug() {
   }
   else lcd.print(F("  "));
 
-  lcd.setCursor(9, 1); lcd.print(sensorVals[3]);
+  lcd.setCursor(9, 1);
+  if (DHT_SENS2) lcd.print("-");
+  else lcd.print(sensorVals[3]);
+
   if (THERM2) {
     lcd.write(223);
     lcd.print(" ");

@@ -1,6 +1,7 @@
 byte PIDchs[] = {2, 3, 7, 8, 9};
 
 void checkPID() {
+#if (USE_PID == 1)
   for (byte i = 0; i < 5; i++) {
     if (channels[PIDchs[i]].mode == 4 && millis() - PIDtimers[i] >= (PID[i].dT * 1000)) {
       PIDtimers[i] = millis();
@@ -24,9 +25,11 @@ void checkPID() {
     }
   }
   if (!startPID) startPID = true;
+#endif
 }
 
 void computePID(byte channel) {
+#if (USE_PID == 1)
   input[channel] = sensorVals[PID[channel].sensor];
   float error = PID[channel].setpoint - input[channel];        // ошибка регулирования
   float delta_input = input[channel] - prevInput[channel];    // изменение входного сигнала
@@ -51,4 +54,5 @@ void computePID(byte channel) {
       if (output[channel] < -PID[channel].maxSignal * 10) output[channel] = -PID[channel].maxSignal * 10;
     }
   }
+#endif
 }

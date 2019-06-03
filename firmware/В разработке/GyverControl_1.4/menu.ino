@@ -141,7 +141,7 @@ void rightHdepth1() {
         if (++channels[currentChannel].startHour > 23) channels[currentChannel].startHour = 23;
         currentLine = 3;
       } else if (thisMode == 2) {  // сутки
-        channels[currentChannel].sensorDay = true;
+        channels[currentChannel].global = true;
         currentLine = 3;
       } else if (thisMode == 3) {
         if (channels[currentChannel].threshold >= 50)
@@ -349,7 +349,7 @@ void leftHdepth1() {
         if (--channels[currentChannel].startHour < 0) channels[currentChannel].startHour = 0;
         currentLine = 3;
       } else if (thisMode == 2) {  // сутки
-        channels[currentChannel].sensorDay = false;
+        channels[currentChannel].global = false;
         currentLine = 3;
       } else if (thisMode == 3) {
         if (channels[currentChannel].threshold >= 50)
@@ -759,7 +759,9 @@ void controlTick() {
         } else if (currentChannel == -1) {
           // позиции стрелки для дебаг
           arrowPos = 0;
+#if (PLOTS == 1)
           if (++debugPage > 6) debugPage = 6;
+#endif
           if (debugPage == 0) {
             lcd.clear();
             redrawDebug();

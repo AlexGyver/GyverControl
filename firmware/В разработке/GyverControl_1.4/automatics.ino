@@ -1,88 +1,3 @@
-// заполнение массива значений с датчиков
-// здесь можно прописать свой датчик!
-void getAllData() {
-#if (USE_BME == 1)
-  sensorVals[0] = floor(bme.readTemperature());
-  sensorVals[1] = floor(bme.readHumidity());
-  sensorVals[1] = constrain(sensorVals[1], 0, 99);
-#else
-  sensorVals[0] = 0;
-  sensorVals[1] = 0;
-#endif
-  sensorVals[2] = analogReadAverage(SENS_1) / 4;
-  sensorVals[3] = analogReadAverage(SENS_2) / 4;
-  sensorVals[4] = analogReadAverage(SENS_3) / 4;
-  sensorVals[5] = analogReadAverage(SENS_4) / 4;
-
-#if (DALLAS_SENS1 == 1)
-  sensorVals[2] = sensors.getTempCByIndex(0);
-  sensors.requestTemperatures();
-#endif
-
-#if (THERM1 == 1)
-  sensorVals[2] = getThermTemp(analogReadAverage(SENS_1), BETA_COEF1);
-#endif
-#if (THERM2 == 1)
-  sensorVals[3] = getThermTemp(analogReadAverage(SENS_2), BETA_COEF2);
-#endif
-#if (THERM3 == 1)
-  sensorVals[4] = getThermTemp(analogReadAverage(SENS_3), BETA_COEF3);
-#endif
-#if (THERM4 == 1)
-  sensorVals[5] = getThermTemp(analogReadAverage(SENS_4), BETA_COEF4);
-#endif
-}
-
-#if (THERM1 == 1 || THERM2 == 1 || THERM3 == 1 || THERM4 == 1)
-#define RESIST_BASE 10000   // сопротивление при TEMP_BASE градусах по Цельсию (Ом)
-#define TEMP_BASE 25        // температура, при которой измерено RESIST_BASE (градусов Цельсия)
-#define RESIST_10K 10000    // точное сопротивление 10к резистора (Ом)
-
-float getThermTemp(int resistance, int B_COEF) {
-  float thermistor;
-  thermistor = RESIST_10K / ((float)1023 / resistance - 1);
-  thermistor /= RESIST_BASE;                        // (R/Ro)
-  thermistor = log(thermistor) / B_COEF;            // 1/B * ln(R/Ro)
-  thermistor += (float)1.0 / (TEMP_BASE + 273.15);  // + (1/To)
-  thermistor = (float)1.0 / thermistor - 273.15;    // инвертируем и конвертируем в градусы по Цельсию
-  return thermistor;
-}
-#endif
-
-int analogReadAverage(byte pin) {
-  // пропускаем первые 10 измерений
-  for (byte i = 0; i < 10; i++)
-    analogRead(pin);
-
-  // суммируем
-  int sum = 0;
-  for (byte i = 0; i < 10; i++)
-    sum += analogRead(pin);
-  return (sum / 10);
-}
-
-byte checkHysteresis(byte channel) {
-  byte state = 0;
-  if (channels[channel].thresholdMax > channels[channel].threshold) {
-    // больше максимума - включить
-    if (sensorVals[channels[channel].sensor] > channels[channel].thresholdMax)
-      state = 1;
-
-    // меньше минимума - выключить
-    if (sensorVals[channels[channel].sensor] < channels[channel].threshold)
-      state = 2;
-  } else {
-    // больше максимума - выключить
-    if (sensorVals[channels[channel].sensor] > channels[channel].threshold)
-      state = 2;
-
-    // меньше минимума - включить
-    if (sensorVals[channels[channel].sensor] < channels[channel].thresholdMax)
-      state = 1;
-  }
-  return state;
-}
-
 void timersTick() {   // каждую секунду
   // получаем время
   now = rtc.now();
@@ -148,27 +63,29 @@ void timersTick() {   // каждую секунду
           }
           break;
         case 2:   // ---------------------- если сутки ----------------------
-          if (/*channelStates[curChannel] != channels[curChannel].direction
-              && */(realTime[0] >= channels[curChannel].hour1 && realTime[0] < channels[curChannel].hour2) ) {
+        if (checkDay(curChannel)) channelStates[curChannel] = channels[curChannel].direction;     // включились до stop hour
+        else channelStates[curChannel] = !channels[curChannel].direction;    // выключились до следующего start hour
+        /*
+          if ((realTime[0] >= channels[curChannel].hour1 && realTime[0] < channels[curChannel].hour2) ) {
 
-            if (channels[curChannel].sensorDay) {                             // если работаем в паре с сенсором
+            if (channels[curChannel].global) {                             // если работаем в паре с сенсором
               if (checkHysteresis(curChannel) == 1) channelStates[curChannel] = channels[curChannel].direction;
               else if (checkHysteresis(curChannel) == 2) channelStates[curChannel] = !channels[curChannel].direction;
             } else {                                                          // работаем чисто по таймеру
               channelStates[curChannel] = channels[curChannel].direction;     // включились до stop hour
             }
-          } else if (/*channelStates[curChannel] == channels[curChannel].direction
-                     && */(realTime[0] < channels[curChannel].hour1 || realTime[0] >= channels[curChannel].hour2)) {
+          } else if ((realTime[0] < channels[curChannel].hour1 || realTime[0] >= channels[curChannel].hour2)) {
 
             channelStates[curChannel] = !channels[curChannel].direction;    // выключились до следующего start hour
           }
+          */
           break;
         case 3:   // ---------------------- если датчик ----------------------
           if (millis() - timerMillis[curChannel] >= channels[curChannel].sensPeriod * 1000L) {
             timerMillis[curChannel] = millis();
 
             if (checkHysteresis(curChannel) == 1) channelStates[curChannel] = channels[curChannel].direction;
-            else if (checkHysteresis(curChannel) == 2) channelStates[curChannel] = !channels[curChannel].direction;
+            else if (checkHysteresis(curChannel) == 2) channelStates[curChannel] = !channels[curChannel].direction;            
           }
           break;
         case 4:   // ---------------------- если ПИД ----------------------
@@ -179,6 +96,8 @@ void timersTick() {   // каждую секунду
           }
           break;
       }
+      // если Day глобальный, выключить канал в нерабочее время!
+      if (channels[curChannel].global && !checkDay(curChannel)) channelStates[curChannel] = !channels[curChannel].direction;
     }
   }
   startFlagDawn = false;
@@ -238,6 +157,36 @@ void timersTick() {   // каждую секунду
     lastDriveState = channelStates[9];
     driveState = 1;
   }
+}
+
+boolean checkDay(byte channel) {
+  if ((realTime[0] >= channels[channel].hour1 && realTime[0] < channels[channel].hour2) ) {
+    return true;
+  } else if ((realTime[0] < channels[channel].hour1 || realTime[0] >= channels[channel].hour2)) {
+    return false;
+  }
+}
+
+byte checkHysteresis(byte channel) {
+  byte state = 0;
+  if (channels[channel].thresholdMax > channels[channel].threshold) {
+    // больше максимума - включить
+    if (sensorVals[channels[channel].sensor] > channels[channel].thresholdMax)
+      state = 1;
+
+    // меньше минимума - выключить
+    if (sensorVals[channels[channel].sensor] < channels[channel].threshold)
+      state = 2;
+  } else {
+    // больше максимума - выключить
+    if (sensorVals[channels[channel].sensor] > channels[channel].threshold)
+      state = 2;
+
+    // меньше минимума - включить
+    if (sensorVals[channels[channel].sensor] < channels[channel].thresholdMax)
+      state = 1;
+  }
+  return state;
 }
 
 void checkDawn(byte curChannel) {
@@ -316,72 +265,12 @@ void driveTick() {
 
     long thisTimeout;
     if (channels[9].mode == 4) thisTimeout = abs(driveStep);
-    else thisTimeout = (long)thisTimeout * 1000;
+    else thisTimeout = (long)driveTimeout * 1000;
     if (driveState == 2 && millis() - driveTimer >= thisTimeout) {
       driveState = 0;
       digitalWrite(DRV_SIGNAL1, DRIVER_LEVEL);
       digitalWrite(DRV_SIGNAL2, DRIVER_LEVEL);
       manualControl = false;
     }
-  }
-}
-
-uint32_t sensorTimer;
-uint32_t period;
-byte sensorMode = 0;
-void readAllSensors() {
-  if (millis() - sensorTimer >= period) {
-    sensorTimer = millis();
-    switch (sensorMode) {
-      case 0:   // вкл питание
-        sensorMode = 1;
-        period = 100;
-        digitalWrite(SENS_VCC, 1);
-        break;
-      case 1:   // измеряем
-        sensorMode = 2;
-        period = 25;
-        //float temp(NAN), hum(NAN), pres(NAN);
-        //bme.read(pres, temp, hum, BME280::TempUnit_Celsius, BME280::PresUnit_Pa);
-        //double temperature, pressure;
-        //double humidity = bme.readHumidity(temperature, pressure);
-        // (air temp, air hum, mois1...)
-        getAllData();
-        break;
-      case 2:   // выключаем
-        sensorMode = 0;
-        period = (long)settings.comSensPeriod * 1000;
-        digitalWrite(SENS_VCC, 0);
-        break;
-    }
-  }
-}
-
-/*
-  24 часа - 1,6 часа - 5760 000
-  1 час - 4 минуты - 240 000
-  1 минута - 4 секунды - 4 000
-*/
-
-void plotTick() {
-  if (millis() - plotTimer >= plotTimeout * 1000L) {
-    plotTimer = millis();
-    // сдвигаем массивы
-    for (byte i = 0; i < 14; i++) {
-      tempDay[i] = tempDay[i + 1];
-      humDay[i] = humDay[i + 1];
-      sensDay_0[i] = sensDay_0[i + 1];
-      sensDay_1[i] = sensDay_1[i + 1];
-      sensDay_2[i] = sensDay_2[i + 1];
-      sensDay_3[i] = sensDay_3[i + 1];
-    }
-
-    // обновляем крайний элемент
-    tempDay[14] = sensorVals[0];
-    humDay[14] = sensorVals[1];
-    sensDay_0[14] = sensorVals[2];
-    sensDay_1[14] = sensorVals[3];
-    sensDay_2[14] = sensorVals[4];
-    sensDay_3[14] = sensorVals[5];
   }
 }
