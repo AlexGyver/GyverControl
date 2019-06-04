@@ -4,6 +4,7 @@ void timersTick() {   // каждую секунду
   realTime[0] = now.hour();
   realTime[1] = now.minute();
   realTime[2] = now.second();
+  if (realTime[0] == 0 && realTime[1] == 0 && realTime[0] == 0) getDay();   // получить номер дня
   uptime += (float)0.0000115741;   // аптайм у нас в сутках! 1/(24*60*60)
 
   for (byte curChannel = 0; curChannel < 10; curChannel++) {
@@ -34,8 +35,8 @@ void timersTick() {   // каждую секунду
                   waterTime += impulsePrds[channels[curChannel].impulsePrd];
                 }
               }
-            } else {                                                                // если часовые периоды
-              if (realTime[1] == 0) {                                               // проверка в первую минуту часа!
+            } else if (channels[curChannel].impulsePrd < 13) {                        // если часовые периоды
+              if (realTime[1] == 0 && (realTime[2] == 0 || realTime[2] == 1)) {       // проверка в первую минуту часа!
                 if (channelStates[curChannel] != channels[curChannel].direction) {    // если ВЫКЛЮЧЕН
                   byte waterTime = channels[curChannel].startHour;                    // начало проверки времени со стартового часа
                   for (byte j = 0; j < 24 / impulsePrds[channels[curChannel].impulsePrd]; j++) {
@@ -54,6 +55,16 @@ void timersTick() {   // каждую секунду
                   }
                 }
               }
+            } else {        // суточные периоды
+              if (realTime[1] == 0 && (realTime[2] == 0 || realTime[2] == 1)) {       // проверка в первую минуту часа!
+                if (channelStates[curChannel] != channels[curChannel].direction) {    // если ВЫКЛЮЧЕН
+                  if (thisDay % impulsePrds[channels[curChannel].impulsePrd] == 0  // если попали в день
+                      && realTime[0] == channels[curChannel].startHour) {             // и час
+                    channelStates[curChannel] = channels[curChannel].direction;   // ВКЛЮЧАЕМ
+                    timerMillis[curChannel] = millis();                           // взводим таймер
+                  }
+                }
+              }
             }
           }
 
@@ -63,21 +74,21 @@ void timersTick() {   // каждую секунду
           }
           break;
         case 2:   // ---------------------- если сутки ----------------------
-        if (checkDay(curChannel)) channelStates[curChannel] = channels[curChannel].direction;     // включились до stop hour
-        else channelStates[curChannel] = !channels[curChannel].direction;    // выключились до следующего start hour
-        /*
-          if ((realTime[0] >= channels[curChannel].hour1 && realTime[0] < channels[curChannel].hour2) ) {
+          if (checkDay(curChannel)) channelStates[curChannel] = channels[curChannel].direction;     // включились до stop hour
+          else channelStates[curChannel] = !channels[curChannel].direction;    // выключились до следующего start hour
+          /*
+            if ((realTime[0] >= channels[curChannel].hour1 && realTime[0] < channels[curChannel].hour2) ) {
 
-            if (channels[curChannel].global) {                             // если работаем в паре с сенсором
-              if (checkHysteresis(curChannel) == 1) channelStates[curChannel] = channels[curChannel].direction;
-              else if (checkHysteresis(curChannel) == 2) channelStates[curChannel] = !channels[curChannel].direction;
-            } else {                                                          // работаем чисто по таймеру
-              channelStates[curChannel] = channels[curChannel].direction;     // включились до stop hour
+              if (channels[curChannel].global) {                             // если работаем в паре с сенсором
+                if (checkHysteresis(curChannel) == 1) channelStates[curChannel] = channels[curChannel].direction;
+                else if (checkHysteresis(curChannel) == 2) channelStates[curChannel] = !channels[curChannel].direction;
+              } else {                                                          // работаем чисто по таймеру
+                channelStates[curChannel] = channels[curChannel].direction;     // включились до stop hour
+              }
+            } else if ((realTime[0] < channels[curChannel].hour1 || realTime[0] >= channels[curChannel].hour2)) {
+
+              channelStates[curChannel] = !channels[curChannel].direction;    // выключились до следующего start hour
             }
-          } else if ((realTime[0] < channels[curChannel].hour1 || realTime[0] >= channels[curChannel].hour2)) {
-
-            channelStates[curChannel] = !channels[curChannel].direction;    // выключились до следующего start hour
-          }
           */
           break;
         case 3:   // ---------------------- если датчик ----------------------
@@ -85,15 +96,17 @@ void timersTick() {   // каждую секунду
             timerMillis[curChannel] = millis();
 
             if (checkHysteresis(curChannel) == 1) channelStates[curChannel] = channels[curChannel].direction;
-            else if (checkHysteresis(curChannel) == 2) channelStates[curChannel] = !channels[curChannel].direction;            
+            else if (checkHysteresis(curChannel) == 2) channelStates[curChannel] = !channels[curChannel].direction;
           }
           break;
         case 4:   // ---------------------- если ПИД ----------------------
           break;
         case 5:   // -------------------- если рассвет --------------------
+#if (USE_DAWN == 1)
           if (realTime[2] == 0 || realTime[2] == 1 || startFlagDawn) {    // проверка каждую минуту (в первые две секунды, на всякий случай)!
             checkDawn(curChannel);
           }
+#endif
           break;
       }
       // если Day глобальный, выключить канал в нерабочее время!
@@ -135,21 +148,25 @@ void timersTick() {   // каждую секунду
   if (SERVO1_RELAY) {   // если реле
     digitalWrite(SERVO_0, channelStates[7]);
   } else {
+#if (SERVO1_RELAY == 0)
     if (channels[7].mode != 4 && channels[7].mode != 5) {
       if (channelStates[7]) servoPos[0] = minAngle[0];
       else servoPos[0] = maxAngle[0];
     }
     if (channels[7].state) servo1.setTargetDeg(servoPos[0]);
+#endif
   }
 
   if (SERVO2_RELAY) {   // если реле
     digitalWrite(SERVO_1, channelStates[8]);
   } else {
+#if (SERVO2_RELAY == 0)
     if (channels[8].mode != 4 && channels[8].mode != 5) {
       if (channelStates[8]) servoPos[1] = minAngle[1];
       else servoPos[1] = maxAngle[1];
     }
     if (channels[8].state) servo2.setTargetDeg(servoPos[1]);
+#endif
   }
 
   // привод
@@ -190,6 +207,7 @@ byte checkHysteresis(byte channel) {
 }
 
 void checkDawn(byte curChannel) {
+#if (USE_DAWN == 1)
   byte curPWMchannel;
   switch (curChannel) {
     case 2: curPWMchannel = 0;  // канал 2
@@ -234,6 +252,7 @@ void checkDawn(byte curChannel) {
     case 8: servoPos[1] = thisSignal;
       break;
   }
+#endif
 }
 
 void driveTick() {
@@ -273,4 +292,14 @@ void driveTick() {
       manualControl = false;
     }
   }
+}
+
+void getDay() {
+  uint16_t days = now.day();
+  for (byte i = 0; i < now.month() - 1; i++)
+    days += daysMonth[i];
+
+  if (now.month() > 2 && now.year() % 4 == 0) // високосный
+    ++days;
+  thisDay = days;
 }

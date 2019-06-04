@@ -89,30 +89,30 @@ void drawArrow() {
         case 3:
           if (thisMode == 0) arrow(11, 1);
           else if (thisMode != 4 && thisMode != 5) arrow(0, 2);
-          else if (thisMode == 4) arrow(8, 1);
+          else if (thisMode == 4 && USE_PID) arrow(8, 1);
           else if (thisMode == 5) arrow(13, 1);
           break;
         case 4:
           if (thisMode == 0) arrow(14, 1);
           else if (thisMode == 1 || thisMode == 2) arrow(0, 3);
           else if (thisMode == 3) arrow(5, 3);
-          else if (thisMode == 4) arrow(15, 1);
+          else if (thisMode == 4 && USE_PID) arrow(15, 1);
           else if (thisMode == 5) arrow(4, 2);
           break;
         case 5:
           if (thisMode == 0) arrow(8, 2);
           else if (thisMode == 3) arrow(15, 3);
-          else if (thisMode == 4) arrow(4, 2);
+          else if (thisMode == 4 && USE_PID) arrow(4, 2);
           else if (thisMode == 5) arrow(13, 2);
           break;
         case 6:
           if (thisMode == 0) arrow(11, 2);
-          else if (thisMode == 4) arrow(16, 2);
+          else if (thisMode == 4 && USE_PID) arrow(16, 2);
           else if (thisMode == 5) arrow(3, 3);
           break;
         case 7:
           if (thisMode == 0) arrow(14, 2);
-          else if (thisMode == 4) arrow(1, 3);
+          else if (thisMode == 4 && USE_PID) arrow(1, 3);
           else if (thisMode == 5) arrow(11, 3);
           break;
         case 8:

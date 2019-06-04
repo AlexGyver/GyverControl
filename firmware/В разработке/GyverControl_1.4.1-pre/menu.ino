@@ -11,10 +11,14 @@ void rightHdepth0() {
       currentLine = 4;
       break;
     case 1: channels[currentChannel].state = true;
+#if (SERVO1_RELAY == 0)
       if (currentChannel == 7)
-        if (!SERVO1_RELAY) servo1.attach(SERVO_0, 600, 2400);
+        servo1.attach(SERVO_0, 600, 2400);
+#endif
+#if (SERVO2_RELAY == 0)
       if (currentChannel == 8)
-        if (!SERVO2_RELAY) servo2.attach(SERVO_1, 600, 2400);
+        servo2.attach(SERVO_1, 600, 2400);
+#endif
       currentLine = 4;
       break;
     case 2: currentLine = 1;
@@ -95,7 +99,7 @@ void rightHdepth1() {
         if (thisH[0] > 999) thisH[0] = 999;
       } else if (thisMode == 1) {  // импульс
         channels[currentChannel].impulsePrd++;
-        if (channels[currentChannel].impulsePrd > 13) channels[currentChannel].impulsePrd = 13;
+        if (channels[currentChannel].impulsePrd > 19) channels[currentChannel].impulsePrd = 19;
       } else if (thisMode == 2) {  // сутки
         if (++channels[currentChannel].hour1 > 23) channels[currentChannel].hour1 = 23;
       } else if (thisMode == 3) {    // датчик
@@ -226,10 +230,14 @@ void leftHdepth0() {
       if (currentChannel >= 0) updateEEPROM(currentChannel);
       if (--currentChannel < -3) currentChannel = -3;
       if (!serviceFlag && currentChannel == -3) serviceIN();
+#if (SERVO1_RELAY == 0)
       if (currentChannel == 7)
         servo1.detach();
+#endif
+#if (SERVO2_RELAY == 0)
       if (currentChannel == 8)
         servo2.detach();
+#endif
       currentLine = 4;
       break;
     case 1: channels[currentChannel].state = false;
@@ -759,7 +767,7 @@ void controlTick() {
         } else if (currentChannel == -1) {
           // позиции стрелки для дебаг
           arrowPos = 0;
-#if (PLOTS == 1)
+#if (USE_PLOTS == 1)
           if (++debugPage > 6) debugPage = 6;
 #endif
           if (debugPage == 0) {

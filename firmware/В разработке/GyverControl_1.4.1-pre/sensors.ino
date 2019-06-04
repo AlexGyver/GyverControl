@@ -106,7 +106,7 @@ void readAllSensors() {
 */
 
 void plotTick() {
-#if (PLOTS == 1)
+#if (USE_PLOTS == 1)
   if (millis() - plotTimer >= plotTimeout * 1000L) {
     plotTimer = millis();
     // сдвигаем массивы

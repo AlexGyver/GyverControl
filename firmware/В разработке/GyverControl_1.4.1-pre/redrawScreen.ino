@@ -1,5 +1,5 @@
 void drawPlot(byte pos, byte row, byte width, byte height, int min_val, int max_val, int *plot_array) {
-#if (PLOTS == 1)
+#if (USE_PLOTS == 1)
   int max_value = -32000;
   int min_value = 32000;
 
@@ -44,7 +44,7 @@ void drawPlot(byte pos, byte row, byte width, byte height, int min_val, int max_
 }
 
 void redrawPlot() {
-#if (PLOTS == 1)
+#if (USE_PLOTS == 1)
   lcd.setCursor(1, 0);
   switch (debugPage) {
     case 1: lcd.print(F("TEMP"));
@@ -234,8 +234,10 @@ void redrawSettings() {
       case 1: lcd.print((int)(impulsePrds[channels[currentChannel].impulsePrd]));
         if (channels[currentChannel].impulsePrd < 6)
           lcd.print(F(" m "));
-        else
+        else if (channels[currentChannel].impulsePrd < 13)
           lcd.print(F(" h  "));
+        else
+          lcd.print(F(" d  "));
         break;
       case 2: lcd.print((byte)(channels[currentChannel].hour1));
         lcd.print(F(" h "));
@@ -260,10 +262,12 @@ void redrawSettings() {
 #endif
         break;
       case 5:
+#if (USE_DAWN == 1)
         lcd.setCursor(0, 1);
         lcd.print("Start:"); lcd.print(dawn[curPWMchannel].start); lcd.print("h  ");
         lcd.setCursor(10, 1);
         lcd.print("Dur:"); lcd.print(dawn[curPWMchannel].dur1); lcd.print("m  ");
+#endif
         break;
     }
   }
@@ -315,10 +319,12 @@ void redrawSettings() {
 #endif
         break;
       case 5:
+#if (USE_DAWN == 1)
         lcd.setCursor(0, 2);
         lcd.print("Stop:"); lcd.print(dawn[curPWMchannel].stop); lcd.print("h  ");
         lcd.setCursor(10, 2);
         lcd.print("Dur:"); lcd.print(dawn[curPWMchannel].dur2); lcd.print("m  ");
+#endif
         break;
     }
   }
@@ -379,12 +385,14 @@ void redrawSettings() {
 #endif
         break;
       case 5:
+#if (USE_DAWN == 1)
         lcd.setCursor(0, 3);
         lcd.print(F("min:")); lcd.print(dawn[curPWMchannel].minV);
         lcd.print("  ");
         lcd.setCursor(8, 3);
         lcd.print(F("max:")); lcd.print(dawn[curPWMchannel].maxV);
         if (dawn[curPWMchannel].maxV < 100) lcd.print(" ");
+#endif
         break;
     }
   }
@@ -498,6 +506,11 @@ void redrawDebug() {
   lcd.print((byte)(realTime[1])); lcd.print(F(":"));
   if (realTime[2] < 10) lcd.print(0);
   lcd.print((byte)(realTime[2]));
+  lcd.setCursor(9, 3);
+  //if (now.dayOfTheWeek() == 0) lcd.print(7);
+  //else lcd.print((byte)now.dayOfTheWeek());
+  lcd.print((int)now.dayOfTheWeek());
+  //lcd.print( (now.dayOfTheWeek() != 0) ? now.dayOfTheWeek() : 7 );
   lcd.setCursor(12, 3); lcd.print(F("U:")); lcd.print(uptime);
 }
 
