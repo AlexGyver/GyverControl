@@ -72,6 +72,17 @@
 - Уровня воды http://ali.ski/7RU3F  http://ali.ski/5lW-7
 - Газоанализатор http://ali.ski/PV7Si  http://ali.ski/wyKmOA
 
+"Специальные" датчики
+- DS18b20-пуля http://ali.ski/hkXyQ  http://ali.ski/TE2nRo
+- DHT11 http://ali.ski/AOZYS  http://ali.ski/XLKWO
+- DHT22 http://ali.ski/kjy4u  http://ali.ski/HX_AtY
+- Термистор http://ali.ski/k39S2  http://ali.ski/m3V-8M
+- Термистор-пуля http://ali.ski/DrAuMF  http://ali.ski/Xo98y5  http://ali.ski/NZDe7K
+
+Плавный контроль
+- Диммер 4 кВт http://ali.ski/TQihAE  http://ali.ski/bIOWyl
+- MOSFET модуль 
+
 Модули реле
 - Реле 5V 1/2/4/8 каналов http://ali.ski/hl-ks http://ali.ski/TlKdRU
 - Реле 5V 2 канала http://ali.ski/lAZpPj http://ali.ski/HN7rD
