@@ -4,7 +4,7 @@
 #include <Servo.h>
 
 /*	
-	ServoSmooth (by AlexGyver) - библиотека для плавного управления сервоприводами
+	ServoSmooth - библиотека для плавного управления сервоприводами
 	- Является дополнением к стандартной библиотеке Servo
 	- Настройка максимальной скорости сервопривода
 	- Настройка ускорения (разгон и торможение) сервопривода
@@ -14,12 +14,15 @@
 	v1.1 - автоматическое отключение (detach) при достижении цели
 	v1.2 - вкл/выкл автоотключения серво
 	v1.3 - отдельный метод для установки и чтения текущего положения. Добавлен вариант метода attach
-	Текущая версия: 1.3
+	v1.4 - улучшена совместимость
+	v1.5 - исправлены getCurrent и getCurrentDeg
+	
+	2019 by AlexGyver
 */
 
-#define SERVO_PERIOD 20		// период работы tick(), мс
-#define DEADZONE 20			// мёртвая зона
-#define TIMEOUT 100			// таймаут мёртвой зоны (в количестве периодов!!!)
+#define SS_SERVO_PERIOD 20		// период работы tick(), мс
+#define SS_DEADZONE 20			// мёртвая зона
+#define SS_TIMEOUT 100			// таймаут мёртвой зоны (в количестве периодов!!!)
 
 class ServoSmooth {
 	public:
@@ -34,7 +37,7 @@ class ServoSmooth {
 		
 		boolean tick();								// метод, управляющий сервой, должен опрашиваться как можно чаще.
 													// Возвращает true, когда целевая позиция достигнута.
-													// Имеет встроенный таймер с периодом SERVO_PERIOD
+													// Имеет встроенный таймер с периодом SS_SERVO_PERIOD
 													
 		boolean tickManual();						// метод, управляющий сервой, без встроенного таймера.
 													// Возвращает true, когда целевая позиция достигнута
@@ -48,12 +51,12 @@ class ServoSmooth {
 		void setCurrentDeg(int target);				// установка текущей позиции в градусах (0-180). Зависит от min и max
 		int getCurrent();							// получение текущей позиции в мкс (500 - 2400)
 		int getCurrentDeg();						// получение текущей позиции в градусах (0-180). Зависит от min и max
-	
-		Servo _servo;
-		int _servoCurrentPos = 0;
-		int _servoTargetPos = 0;
 		
-	private:		
+		Servo _servo;		
+		
+	private:
+		int _servoCurrentPos = 0;
+		int _servoTargetPos = 0;	
 		int _min = 500;
 		int _max = 2400;
 		uint32_t _prevServoTime = 0;		

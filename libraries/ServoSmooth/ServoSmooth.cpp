@@ -75,10 +75,10 @@ void ServoSmooth::setCurrentDeg(int target) {
 }
 
 int ServoSmooth::getCurrent() {
-	return _servoCurrentPos;
+	return _newPos;
 }
 int ServoSmooth::getCurrentDeg() {
-	return (map(_servoCurrentPos, _min, _max, 0, 180));
+	return (map(_newPos, _min, _max, 0, 180));
 }
 
 
@@ -97,10 +97,10 @@ boolean ServoSmooth::tickManual() {
 			_servo.writeMicroseconds(_newPos);									// отправляем на серво
 		}			
 	}
-	if (abs(_newSpeed) < DEADZONE) {
+	if (abs(_newSpeed) < SS_DEADZONE) {
 		if (_autoDetach && _servoState) {
 			_timeoutCounter++;
-			if (_timeoutCounter > TIMEOUT) {
+			if (_timeoutCounter > SS_TIMEOUT) {
 				_servoState = false;
 				_servo.detach();
 			}
@@ -118,7 +118,7 @@ boolean ServoSmooth::tickManual() {
 }
 
 boolean ServoSmooth::tick() {
-	if (millis() - _prevServoTime >= SERVO_PERIOD) {
+	if (millis() - _prevServoTime >= SS_SERVO_PERIOD) {
 		_prevServoTime = millis();
 		if (ServoSmooth::tickManual()) return true;
 		else return false;
