@@ -1,0 +1,22 @@
+#######################################
+# Syntax Coloring Map For microWire
+#######################################
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+microWire	KEYWORD1
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+begin	KEYWORD2
+setClock	KEYWORD2
+beginTransmission	KEYWORD2
+endTransmission	KEYWORD2
+write	KEYWORD2
+read	KEYWORD2
+requestFrom	KEYWORD2
+available	KEYWORD2
+#######################################
+# Constants (LITERAL1)
+#######################################
+

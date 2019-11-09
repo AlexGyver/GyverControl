@@ -23,12 +23,14 @@ LiquidCrystal_I2C lcd(LCD_ADDR, 20, 4);
 #include <microDS3231.h>
 MicroDS3231 rtc;
 
-// adafr
+// bme
 #if (USE_BME == 1)
-#include <Adafruit_Sensor.h>
-#include <Adafruit_BME280.h>
-#define SEALEVELPRESSURE_HPA (1013.25)
-Adafruit_BME280 bme;
+#include <GyverBME280.h>
+GyverBME280 bme;
+//#include <Adafruit_Sensor.h>
+//#include <Adafruit_BME280.h>
+//#define SEALEVELPRESSURE_HPA (1013.25)
+//Adafruit_BME280 bme;
 #endif
 
 #if (DALLAS_SENS1 == 1)
