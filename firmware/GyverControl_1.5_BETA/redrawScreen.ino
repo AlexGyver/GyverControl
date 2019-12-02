@@ -503,7 +503,7 @@ void redrawDebug() {
     else if (sensorVals[4] < 100) lcd.print(F(" "));
   }
 
-  lcd.setCursor(0, 2); lcd.print(F("T:")); lcd.print((int)(sensorVals[0])); lcd.write(223);
+  lcd.setCursor(0, 2); lcd.print(F("T:")); lcd.print((int)(sensorVals[0])); if (sensorVals[0] >= 0) lcd.write(223);
   lcd.setCursor(5, 2); lcd.print(F("R:"));
   for (byte i = 0; i < 7; i++) {
     if (channels[i].state) {
