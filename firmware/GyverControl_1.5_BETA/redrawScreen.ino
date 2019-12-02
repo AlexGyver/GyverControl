@@ -514,7 +514,7 @@ void redrawDebug() {
         if (thisHeight == 0) lcd.write(32);   // пустой
         else if (thisHeight < 8) lcd.write(thisHeight + 1); // половинки
         else lcd.write(0);          // полный
-      } else lcd.print(channelStates[i]);
+      } else lcd.print((bool)channelStates[i] ^ !channels[i].direction);
     }
     else lcd.print(F("-"));
   }

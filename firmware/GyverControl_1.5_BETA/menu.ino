@@ -20,6 +20,11 @@ void incr(int8_t* val, int incr, int limit) {
   if (*val > limit) *val = limit;
   if (*val < 0) *val = 0;
 }
+void incr(float* val, float incr, float limit) {
+  *val += incr;
+  if (*val > limit) *val = limit;
+  if (*val < 0) *val = 0;
+}
 void incr(byte* val, int incr, int limit) {
   int value = (int) * val;
   value += incr;
@@ -27,10 +32,10 @@ void incr(byte* val, int incr, int limit) {
   if (value < 0) value = 0;
   *val = (byte)value;
 }
-void incr(float* val, float incr, float limit) {
+void incrInt(int* val, int incr, int limit) {
   *val += incr;
   if (*val > limit) *val = limit;
-  if (*val < 0) *val = 0;
+  if (*val < -100) *val = -100;
 }
 
 void serviceSett(int dir) {
@@ -305,9 +310,9 @@ void chSettingsSett(int dir) {
           break;
         case 3:
           if (channels[currentChannel].threshold >= 50)
-            incr(&channels[currentChannel].threshold, dir * 10, 255);
+            incrInt(&channels[currentChannel].threshold, dir * 10, 255);
           else
-            incr(&channels[currentChannel].threshold, dir, 255);
+            incrInt(&channels[currentChannel].threshold, dir, 255);
           currentLine = 3;
           break;
         case 4: incr(&PID[curPWMchannel].kD, dir * 0.1, 100);
@@ -329,9 +334,9 @@ void chSettingsSett(int dir) {
           break;
         case 3:
           if (channels[currentChannel].thresholdMax >= 50)
-            incr(&channels[currentChannel].thresholdMax, dir * 10, 255);
+            incrInt(&channels[currentChannel].thresholdMax, dir * 10, 255);
           else
-            incr(&channels[currentChannel].thresholdMax, dir, 255);
+            incrInt(&channels[currentChannel].thresholdMax, dir, 255);
           currentLine = 3;
           break;
         case 4: incr(&PID[curPWMchannel].sensor, dir, 5);
