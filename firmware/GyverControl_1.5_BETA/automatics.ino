@@ -80,6 +80,20 @@ void timersTick() {   // каждую секунду
           if (millis() - timerMillis[curChannel] >= channels[curChannel].sensPeriod * 1000L) {
             timerMillis[curChannel] = millis();
 
+            /*
+              флаг и laststate на каждый канал, +20 байт
+              если (laststate != checkHysteresis) {
+                если (!флаг) {
+                  сброс таймера
+                  флаг = 1
+                } иначе {
+                  laststate = checkHysteresis
+                  стейт меняем
+                  флаг = 0
+                }
+              }
+            */
+
             if (checkHysteresis(curChannel) == 1) channelStates[curChannel] = channels[curChannel].direction;
             else if (checkHysteresis(curChannel) == 2) channelStates[curChannel] = !channels[curChannel].direction;
           }

@@ -101,9 +101,11 @@ void serviceSett(int dir) {
       currentLine = 3;
       break;
     case 14: incr(&settings.comSensPeriod, dir, 1000);
+      settingsChanged = true;
       currentLine = 3;
       break;
     case 15: incr(&settings.plotMode, dir, 2);
+      settingsChanged = true;
       switch (settings.plotMode) {
         case 0: plotTimeout = 5760;
           break;

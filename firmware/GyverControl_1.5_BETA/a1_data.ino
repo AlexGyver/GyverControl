@@ -123,7 +123,7 @@ byte minAngle[] = {0, 0};         // мин. угол
 byte maxAngle[] = {180, 180};     // макс. угол
 
 //byte eeprAdr[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 13, 17};
-byte impulsePrds[] = {1, 5, 10, 15, 20, 30, 1, 2, 3, 4, 6, 8, 12, 1, 2, 3, 4, 5, 6, 7};
+const byte impulsePrds[] = {1, 5, 10, 15, 20, 30, 1, 2, 3, 4, 6, 8, 12, 1, 2, 3, 4, 5, 6, 7};
 byte relayPins[] = {RELAY_0, RELAY_1, RELAY_2, RELAY_3, RELAY_4, RELAY_5, RELAY_6};
 
 int sensorVals[6];    // темп. воздв, влажн в, почв1, почв2, почв3, почв4
