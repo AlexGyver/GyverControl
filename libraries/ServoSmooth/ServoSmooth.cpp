@@ -1,6 +1,7 @@
 #include <Servo.h>
 #include "ServoSmooth.h"
 
+// ====== WRITE ======
 void ServoSmooth::write(uint16_t angle) {
 	_servo.write(angle);
 }
@@ -9,31 +10,25 @@ void ServoSmooth::writeMicroseconds(uint16_t angle) {
 	_servo.writeMicroseconds(angle);
 }
 
-void ServoSmooth::attach(uint8_t pin) {
-	_servo.attach(pin);
+// ====== ATTACH ======
+void ServoSmooth::attach(uint8_t pin, int target) {
 	_pin = pin;
+	_servo.attach(_pin);
+	if (target <= 180) target = map(target, 0, 180, _min, _max);	
+	_servo.writeMicroseconds(target);
+	_servoTargetPos = target;
+	_servoCurrentPos = target;
+	_newPos = target;
+}
+
+void ServoSmooth::attach(uint8_t pin, int min, int max, int target) {
+	attach(pin, target);
+	_min = min;
+	_max = max;
 }
 
 void ServoSmooth::detach() {
 	_servo.detach();
-}
-
-void ServoSmooth::attach(uint8_t pin, int min, int max) {
-	_servo.attach(pin);
-	_pin = pin;
-	_min = min;
-	_max = max;
-}
-
-void ServoSmooth::attach(uint8_t pin, int min, int max, int target) {
-	_servo.attach(pin);
-	if (target <= 180) {
-		target = map(target, 0, 180, _min, _max);
-	}
-	_servo.writeMicroseconds(target);
-	_pin = pin;
-	_min = min;
-	_max = max;
 }
 
 void ServoSmooth::start() {
@@ -46,6 +41,7 @@ void ServoSmooth::stop() {
 	_tickFlag = false;
 }
 
+// ====== SET ======
 void ServoSmooth::setSpeed(int speed) {
 	_servoMaxSpeed = speed;
 }
@@ -75,36 +71,43 @@ void ServoSmooth::setCurrentDeg(int target) {
 }
 
 int ServoSmooth::getCurrent() {
-	return _newPos;
+	return (int)_newPos;
 }
 int ServoSmooth::getCurrentDeg() {
-	return (map(_newPos, _min, _max, 0, 180));
+	return (map((int)_newPos, _min, _max, 0, 180));
 }
 
+int ServoSmooth::getTarget() {
+	return _servoTargetPos;
+}
+int ServoSmooth::getTargetDeg() {
+	return (map(_servoTargetPos, _min, _max, 0, 180));
+}
 
 void ServoSmooth::setAutoDetach(boolean set) {
 	_autoDetach = set;
 }
 
+// ====== TICK ======
 boolean ServoSmooth::tickManual() {
 	if (_tickFlag) {
-		_newSpeed = _servoTargetPos - _servoCurrentPos;						// расчёт скорости
+		_newSpeed = _servoTargetPos - _servoCurrentPos;							// расчёт скорости
 		if (_servoState) {
 			_newSpeed = constrain(_newSpeed, -_servoMaxSpeed, _servoMaxSpeed);	// ограничиваем по макс.
-			_servoCurrentPos += _newSpeed;										// получаем новую позицию
+			_servoCurrentPos += _newSpeed;										// получаем новую позицию			
 			_newPos += (float)(_servoCurrentPos - _newPos) * _k;				// и фильтруем её
 			_newPos = constrain(_newPos, _min, _max);							// ограничиваем
-			_servo.writeMicroseconds(_newPos);									// отправляем на серво
+			_servo.writeMicroseconds((int)_newPos);									// отправляем на серво
 		}			
 	}
-	if (abs(_newSpeed) < SS_DEADZONE) {
+	if (abs(_servoTargetPos - (int)_newPos) < SS_DEADZONE) {		
 		if (_autoDetach && _servoState) {
 			_timeoutCounter++;
 			if (_timeoutCounter > SS_TIMEOUT) {
 				_servoState = false;
 				_servo.detach();
 			}
-		}		
+		}
 		return true;
 	} else {
 		if (_autoDetach && !_servoState) {
@@ -114,7 +117,7 @@ boolean ServoSmooth::tickManual() {
 		_timeoutCounter = 0;
 		return false;
 	}
-		
+	
 }
 
 boolean ServoSmooth::tick() {
