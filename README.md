@@ -50,77 +50,78 @@
 <a id="chapter-3"></a>
 ## Материалы и компоненты
 ### Ссылки оставлены на магазины, с которых я закупаюсь уже не один год
-Железо контроллера
-- Arduino NANO 328p http://ali.ski/vQENg  http://ali.ski/vCLD4m  http://ali.ski/PTT3G
-- Энкодер http://ali.ski/6Vqf_  http://ali.ski/3ElKb  http://ali.ski/Y6ASf  http://ali.ski/9kD70b
-- Дисплей 2004 http://ali.ski/ns30n  http://ali.ski/K70Qdm
-- DS3231 мини http://ali.ski/iEOal  http://ali.ski/-4lZJ  http://ali.ski/3-lhX
-- Датчик т/вл воздуха BME280 (5V) http://ali.ski/K_4yQ  http://ali.ski/HbIQUR
-- Драйвер привода http://ali.ski/SUlJG  http://ali.ski/fyfou6
-
+Arduino NANO 328p – искать
+* https://ali.ski/tI7blh
+* https://ali.ski/O4yTxb
+* https://ali.ski/6_rFIS
+* https://ali.ski/gb92E-
+Энкодер – искать
+* https://ali.ski/c-hjE
+* https://ali.ski/OygY3d
+* https://ali.ski/II_efl
+* Дисплей 2004 https://ali.ski/LTT9-
+* DS3231 мини https://ali.ski/dU04gz
+* Датчик т/вл воздуха BME280 (5V) https://ali.ski/S0luA
+* Драйвер привода https://ali.ski/1EhPr
 Датчики вл. почвы
-- Обычный http://ali.ski/hfAPFR  http://ali.ski/-S4KK
-- Золотой http://ali.ski/Rh23E  http://ali.ski/ioVGRT
-- Ёмкостный http://ali.ski/OzKaU3  http://ali.ski/Sweg4  http://ali.ski/vw05eG
 
+* Обычный https://ali.ski/m8BeF
+* Золотой https://ali.ski/-bsqJ
+* Ёмкостный https://ali.ski/M6VDH
 Аналоговые датчики
-- Освещённости http://ali.ski/rP2XuQ  http://ali.ski/Kqoan8  http://ali.ski/jHUZN
-- Термистор http://ali.ski/0URXo  http://ali.ski/fUkzn
-- Звука http://ali.ski/er1AKe  http://ali.ski/W_Biw
-- ИК излучения http://ali.ski/cuFSD3
-- Дождя http://ali.ski/OhEYBI  http://ali.ski/6QHO_W
-- Уровня воды http://ali.ski/7RU3F  http://ali.ski/5lW-7
-- Газоанализатор http://ali.ski/PV7Si  http://ali.ski/wyKmOA
 
-"Специальные" датчики
-- DS18b20-пуля http://ali.ski/hkXyQ  http://ali.ski/TE2nRo
-- DHT11 http://ali.ski/AOZYS  http://ali.ski/XLKWO
-- DHT22 http://ali.ski/kjy4u  http://ali.ski/HX_AtY
-- Термистор http://ali.ski/k39S2  http://ali.ski/m3V-8M
-- Термистор-пуля http://ali.ski/DrAuMF  http://ali.ski/Xo98y5  http://ali.ski/NZDe7K
-
-Плавный контроль
-- Диммер 4 кВт http://ali.ski/TQihAE  http://ali.ski/bIOWyl
-- MOSFET модуль 
-
+* Освещённости https://ali.ski/Lnf83U
+* Термистор https://ali.ski/uW2Yr
+* Звука https://ali.ski/iRQ5N
+* ИК излучения https://ali.ski/osmF7u
+* Дождя https://ali.ski/lVpLJe
+* Уровня воды https://ali.ski/dx5WBl
+* Газоанализатор https://ali.ski/uPCLr
 Модули реле
-- Реле 5V 1/2/4/8 каналов http://ali.ski/hl-ks http://ali.ski/TlKdRU
-- Реле 5V 2 канала http://ali.ski/lAZpPj http://ali.ski/HN7rD
-- Реле 5V 4 канала http://ali.ski/x9448y
-- Твердотельные http://ali.ski/cH5I3  http://ali.ski/tc-Wvl  http://ali.ski/7mmv_  http://ali.ski/GKS1ni
-- Одноканальное мощное SSR http://ali.ski/iG9jX8  http://ali.ski/Bl_Rye
 
+* Обычные https://ali.ski/9HO–D
+* Твердотельные https://ali.ski/RXOMz
+* Одноканальное мощное SSR https://ali.ski/Q7p4F7
 Сервоприводы
-- Малый (2 кг*см) http://ali.ski/rFG1e  http://ali.ski/lqDaZ
-- Большой (13 кг*см) http://ali.ski/qsvQoE  http://ali.ski/-Wq58
-- Большой (20 кг*см) http://ali.ski/FTJ3W-  http://ali.ski/eikGZ
-- Очень большой (50 кг*см) http://ali.ski/n2GcZ
 
+* Малый (2 кг*см) https://ali.ski/A-9ge
+* Большой (13 кг*см) https://ali.ski/TCkbH
+* Большой (20 кг*см) https://ali.ski/6Zm1t
+* Очень большой (60 кг*см) https://ali.ski/TEndsx
 Линейные приводы
-- Привод 100мм 12V (скорость я брал 45mm/s) http://ali.ski/nLdJOj
-- Привод 20/30/50мм 12V http://ali.ski/09Lqys
-- Привод 150/200мм 12V http://ali.ski/ipCsB
 
+* Привод 100мм 12V (скорость я брал 45mm/s) http://ali.ski/nLdJOj
 Железки для теплицы
-- Средняя помпа http://ali.ski/lIVte  http://ali.ski/TP-uy  http://ali.ski/KvkuTQ
-- Мощная помпа http://ali.ski/rfBhND  http://ali.ski/hpiO85  http://ali.ski/HKekA  http://ali.ski/DiYbgv
-- Лампочки с полным спектром http://ali.ski/AXzAf  http://ali.ski/8Qi8a0  http://ali.ski/JZcVv7
-- Матрицы с полным спектром http://ali.ski/pH-EGI  http://ali.ski/x2tVm
-- Готовые полноспектровые светильники http://ali.ski/joEm8  http://ali.ski/JnoHA  http://ali.ski/6Rslgi
 
+Средняя помпа
+* https://ali.ski/XR-Nd
+* https://ali.ski/pnFE6
+Мощная помпа
+* https://ali.ski/pn_aq
+* https://ali.ski/LBRNq0
+* https://ali.ski/0nggzk
+* https://ali.ski/9yTPR
+* Клапан 1/2″ https://ali.ski/BLmah
+Лампочки с полным спектром
+* http://ali.ski/AXzAf
+* ttp://ali.ski/8Qi8a0
+* Матрицы с полным спектром https://ali.ski/k-WPS6
+* Готовые полноспектровые светильники https://ali.ski/NHgOk
 Разное
-- БП 5V 2A питание схемы http://ali.ski/7iOfQn  http://ali.ski/ygpCU  http://ali.ski/qrJ41
-- БП 12V 3A питание привода http://ali.ski/7iOfQn  http://ali.ski/ygpCU  http://ali.ski/qrJ41
-- Кнопки NC http://ali.ski/GmyPb
-- Кнопки NO http://ali.ski/vk-rb
-- Концевик герметичный http://ali.ski/MTxcf  http://ali.ski/g655sn
-- Колодки http://ali.ski/wA07ne  http://ali.ski/THSQ9
-- Рейка контактная http://ali.ski/opd64
-- Рейка угловая http://fas.st/opqeGu  http://ali.ski/u9Bz9
 
-В наших магазинах
-- Рейка контактная https://www.chipdip.ru/product/pls-40
-- Рейка угловая тройная PLT-120R https://www.chipdip.ru/product/plt-120r-pitch-2-54-mm
+* БП 5V 2A питание схемы https://ali.ski/uMcMWP
+* БП 12V 3A питание привода http://ali.ski/7iOfQn http://ali.ski/ygpCU  http://ali.ski/qrJ41
+* Кнопки искать https://ali.ski/PrsxZ
+* Кнопки NC http://ali.ski/GmyPb
+* Кнопки NO http://ali.ski/vk-rb
+* Концевик герметичный http://ali.ski/MTxcf http://ali.ski/g655sn
+* Колодки https://ali.ski/uQdWqO
+* Рейка контактная https://ali.ski/4n0EH
+* Рейка угловая http://fas.st/opqeGu
+* В наших магазинах
+
+* Рейка контактная https://www.chipdip.ru/product/pls-40
+* Рейка угловая тройная PLT-120R https://www.chipdip.ru/product/plt-120r-pitch-2-54-mm
 
 ## Вам скорее всего пригодится
 * [Всё для пайки (паяльники и примочки)](http://alexgyver.ru/all-for-soldering/)
