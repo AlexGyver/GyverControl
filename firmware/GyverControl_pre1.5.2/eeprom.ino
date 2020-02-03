@@ -4,7 +4,7 @@ void updateEEPROM(byte channel) {
     if (channels[channel].mode == 4 || channels[channel].mode == 5) {
       byte curPWMchannel = channelToPWM(channel);
       if (channels[channel].mode == 4) EEPROM.put(curPWMchannel * 18 + 500, PID[curPWMchannel]);
-      if (channels[channel].mode == 5) EEPROM.put(curPWMchannel * 6 + 600, dawn[curPWMchannel]);
+      if (channels[channel].mode == 5 && curPWMchannel != 4) EEPROM.put(curPWMchannel * 6 + 600, dawn[curPWMchannel]);
     }
     EEPROM.update(400, minAngle[0]);
     EEPROM.update(401, minAngle[1]);
