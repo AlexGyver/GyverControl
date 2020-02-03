@@ -55,37 +55,37 @@ void setup() {
   while (!digitalRead(SW));
 
   // ----- первый запуск или сброс -----
-  if (EEPROM.read(1022) != 42 || resetSettings) {
-    EEPROM.write(1022, 42);
+  if (EEPROM.read(1022) != 50 || resetSettings) {
+    EEPROM.write(1022, 50);
     for (byte i = 0; i < 10; i++) {
-      EEPROM.put(i * 30, channels[i]);
+      EEPROM.put(i * 40, channels[i]);
     }
-    EEPROM.put(300, minAngle[0]);
-    EEPROM.put(301, minAngle[1]);
-    EEPROM.put(302, maxAngle[0]);
-    EEPROM.put(303, maxAngle[1]);
-    EEPROM.put(304, driveTimeout);
+    EEPROM.put(400, minAngle[0]);
+    EEPROM.put(401, minAngle[1]);
+    EEPROM.put(402, maxAngle[0]);
+    EEPROM.put(403, maxAngle[1]);
+    EEPROM.put(404, driveTimeout);
     EEPROM.put(900, settings);
 
     for (byte i = 0; i < 5; i++) {
-      EEPROM.put(i * 25 + 400, PID[i]);
-      EEPROM.put(i * 7 + 500, dawn[i]);
+      EEPROM.put(i * 25 + 500, PID[i]);
+      EEPROM.put(i * 7 + 600, dawn[i]);
     }
   }
 
   // ----- чтение настроек -----
   for (byte i = 0; i < 10; i++) {
-    EEPROM.get(i * 30, channels[i]);
+    EEPROM.get(i * 40, channels[i]);
   }
-  minAngle[0] = EEPROM.read(300);
-  minAngle[1] = EEPROM.read(301);
-  maxAngle[0] = EEPROM.read(302);
-  maxAngle[1] = EEPROM.read(303);
-  driveTimeout = EEPROM.read(304);
+  minAngle[0] = EEPROM.read(400);
+  minAngle[1] = EEPROM.read(401);
+  maxAngle[0] = EEPROM.read(402);
+  maxAngle[1] = EEPROM.read(403);
+  driveTimeout = EEPROM.read(404);
 
   for (byte i = 0; i < 5; i++) {
-    EEPROM.get(i * 25 + 400, PID[i]);
-    EEPROM.get(i * 7 + 500, dawn[i]);
+    EEPROM.get(i * 25 + 500, PID[i]);
+    EEPROM.get(i * 7 + 600, dawn[i]);
   }
 
   EEPROM.get(900, settings);
