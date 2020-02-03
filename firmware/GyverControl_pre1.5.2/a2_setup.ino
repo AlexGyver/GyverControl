@@ -68,8 +68,8 @@ void setup() {
     EEPROM.put(900, settings);
 
     for (byte i = 0; i < 5; i++) {
-      EEPROM.put(i * 25 + 500, PID[i]);
-      EEPROM.put(i * 7 + 600, dawn[i]);
+      EEPROM.put(i * 18 + 500, PID[i]);
+      if (i != 4) EEPROM.put(i * 6 + 600, dawn[i]);
     }
   }
 
@@ -84,8 +84,8 @@ void setup() {
   driveTimeout = EEPROM.read(404);
 
   for (byte i = 0; i < 5; i++) {
-    EEPROM.get(i * 25 + 500, PID[i]);
-    EEPROM.get(i * 7 + 600, dawn[i]);
+    EEPROM.get(i * 18 + 500, PID[i]);
+    if (i != 4) EEPROM.get(i * 6 + 600, dawn[i]);
   }
 
   EEPROM.get(900, settings);

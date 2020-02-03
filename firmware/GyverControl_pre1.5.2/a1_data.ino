@@ -52,10 +52,11 @@ DHT dht(SENS_2, DHT_TYPE);
 struct {
   int8_t start = 0;
   int8_t stop = 0;
-  byte dur1 = 60;
-  byte dur2 = 60;
-  byte minV = 0;
-  byte maxV = 255;
+  uint8_t dur1 = 60;
+  uint8_t dur2 = 60;
+  uint8_t minV = 0;
+  uint8_t maxV = 255;
+  // 6
 } dawn[4];
 
 // PID
@@ -68,6 +69,7 @@ struct {
   byte minSignal = 0;     // мин. сигнал
   byte maxSignal = 100;   // макс. сигнал
   int setpoint = 20;      // установка
+  // 18
 } PID[5];
 
 float integralSum[5];
