@@ -19,18 +19,23 @@
 	v1.5 - исправлены getCurrent и getCurrentDeg
 	v1.6 - чуть оптимизирована инициализация
 	v1.7 - исправлен баг с низкой скоростью/ускорением, код оптимизирован
+	v1.8 - улучшена стабильность
+	v1.9 - добавлена настройка макс. угла серво
+	v1.10 - исправлен баг когда текущая позиция совпадает с позицией таргета
+	v2.0 - упрощён алгоритм
 	
 	2019 by AlexGyver
 */
 
 #define SS_SERVO_PERIOD 20		// период работы tick(), мс
-#define SS_DEADZONE 20			// мёртвая зона
-#define SS_TIMEOUT 100			// таймаут мёртвой зоны (в количестве периодов SS_SERVO_PERIOD!!!)
+#define SS_DEADZONE 50			// мёртвая зона
 
 class ServoSmooth {
 public:
+	ServoSmooth(int maxAngle = 180);			// конструктор с передачей макс угла
 	void write(uint16_t angle);					// аналог метода из библиотеки Servo
 	void writeMicroseconds(uint16_t angle);		// аналог метода из библиотеки Servo
+	void attach();								// подключает к выбранному в attach(pin) пину
 	void attach(uint8_t pin, int target = 0);	// аналог метода из библиотеки Servo
 	void attach(uint8_t pin, int min, int max, int target = 0);	// аналог метода из библиотеки Servo. min по умолч. 500, max 2400. target - положение (в углах или мкс, на которые серво повернётся при подключении)
 	void detach();								// аналог метода из библиотеки Servo
@@ -47,18 +52,20 @@ public:
 	void setSpeed(int speed);					// установка максимальной скорости (условные единицы, 0 - 200)
 	void setAccel(float accel);					// установка ускорения (0.05 - 1). При значении 1 ускорение максимальное
 	void setTarget(int target);					// установка целевой позиции в мкс (500 - 2400)
-	void setTargetDeg(int target);				// установка целевой позиции в градусах (0-180). Зависит от min и max
+	void setTargetDeg(int target);				// установка целевой позиции в градусах (0-макс. угол). Зависит от min и max
 	void setAutoDetach(boolean set);			// вкл/выкл автоматического отключения (detach) при достижении угла. По умолч. вкл
 	void setCurrent(int target);				// установка текущей позиции в мкс (500 - 2400)
-	void setCurrentDeg(int target);				// установка текущей позиции в градусах (0-180). Зависит от min и max
+	void setCurrentDeg(int target);				// установка текущей позиции в градусах (0-макс. угол). Зависит от min и max
+	void setMaxAngle(int maxAngle);				// установка макс. угла привода
 	int getCurrent();							// получение текущей позиции в мкс (500 - 2400)
-	int getCurrentDeg();						// получение текущей позиции в градусах (0-180). Зависит от min и max
+	int getCurrentDeg();						// получение текущей позиции в градусах (0-макс. угол). Зависит от min и max
 	int getTarget();							// получение целевой позиции в мкс (500 - 2400)
-	int getTargetDeg();							// получение целевой позиции в градусах (0-180). Зависит от min и max
+	int getTargetDeg();							// получение целевой позиции в градусах (0-макс. угол). Зависит от min и max
 	
 	Servo _servo;		
 	
 private:
+	int _maxAngle = 180;
 	int _servoCurrentPos = 0;
 	int _servoTargetPos = 0;
 	float _newPos = 0;
