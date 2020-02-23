@@ -14,7 +14,7 @@ ServoSmooth servo2;
 
 //#include "LCD_1602_RUS.h"
 //LCD_1602_RUS lcd(LCD_ADDR, 20, 4);
-//#include <Wire.h>
+#include <microWire.h>
 #include <microLiquidCrystal_I2C.h>
 LiquidCrystal_I2C lcd(LCD_ADDR, 20, 4);
 
