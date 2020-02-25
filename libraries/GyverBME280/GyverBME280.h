@@ -4,6 +4,7 @@
 * BOSCH BME280 [I2C] Arduino library                                                * 
 * 31.10.2019                                                                        *
 ************************************************************************************/
+// v1.1 - косметические доработки
 
 #ifndef GyverBME280_h
 #define GyverBME280_h
@@ -43,7 +44,6 @@
 class GyverBME280 {
 
 public:
-
 	GyverBME280();								// Create an object of class BME280
 	bool begin(byte addr = 0x76);				// Initialize sensor with standard or previously selected parameters
 	bool isMeasuring(void);						// Returns 'true' while the measurement is in progress					
@@ -59,7 +59,6 @@ public:
 	void setPressOversampling(uint8_t mode);	// Set oversampling or disable pressure module [before begin()]
 
 private:
-
 	//============================== DEFAULT SETTINGS ========================================|
 	uint8_t _i2c_address = 0x76;				// BME280 address on I2C bus                  |
 	uint8_t _operating_mode = NORMAL_MODE;		// Sensor operation mode                      |
@@ -119,8 +118,6 @@ float pressureToMmHg(float pressure) {
 	return (float)(pressure * 0.00750061683f);					// Convert [Pa] to [mm Hg]
 }
 
-
-
 /* ============ Setup & begin ============ */
 
 bool GyverBME280::begin(byte addr) {	
@@ -170,7 +167,7 @@ void GyverBME280::setPressOversampling(uint8_t mode) {
 
 int32_t GyverBME280::readTempInt(void) {
 	uint32_t temp_raw = GyverBME280::readRegister24(0xFA);			// Read 24-bit value
-	if (temp_raw == 0x800000) return NULL;							// If the temperature module has been disabled return '0'
+	if (temp_raw == 0x800000) return -1;							// If the temperature module has been disabled return '0'
 
 	temp_raw >>= 4;													// Start temperature reading in integers
 	int32_t value_1 = ((((temp_raw >> 3) - ((int32_t)CalibrationData._T1 << 1))) *
@@ -190,7 +187,7 @@ float GyverBME280::readTemperature(void) {
 
 float GyverBME280::readPressure(void) {
 	uint32_t press_raw = GyverBME280::readRegister24(0xF7);			// Read 24-bit value
-	if (press_raw == 0x800000) return NULL;							// If the pressure module has been disabled return '0'
+	if (press_raw == 0x800000) return -1;							// If the pressure module has been disabled return '0'
 
 	press_raw >>= 4;													// Start pressure converting
 	int64_t value_1 = ((int64_t)GyverBME280::readTempInt()) - 128000;
@@ -218,7 +215,7 @@ float GyverBME280::readHumidity(void) {
 	Wire.endTransmission();											
 	Wire.requestFrom(_i2c_address, 2);										// Request humidity data 
 	int32_t hum_raw = ((uint16_t)Wire.read() << 8) | (uint16_t)Wire.read();	// Read humidity data 
-	if (hum_raw == 0x8000) return NULL;										// If the humidity module has been disabled return '0'
+	if (hum_raw == 0x8000) return -1;										// If the humidity module has been disabled return '0'
 
 	int32_t value  = (GyverBME280::readTempInt() - ((int32_t)76800));			// Start humidity converting
 	value = (((((hum_raw << 14) - (((int32_t)CalibrationData._H4) << 20) -
