@@ -135,7 +135,7 @@ float uptime = 0;
 byte servoPos[2];
 byte servoPosServ[2];
 byte pwmVal[4];
-const int PWMperiod = 1000 / PWM_RELAY_HZ;
+const int PWMperiod = (float)1000 / PWM_RELAY_HZ;
 int PWMactive[2];
 
 int driveStep;   // время движения привода для ПИД
