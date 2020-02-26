@@ -202,9 +202,9 @@ void channelSett(int dir) {
 
       } else if (curMode == 1) {  // серво
         if (currentChannel == 7) {
-          incr(&settings.minAngle[0], 10 * dir, 180);
+          incr(&settings.minAngle[0], 5 * dir, 180);
         } else if (currentChannel == 8) {
-          incr(&settings.minAngle[1], 10 * dir, 180);
+          incr(&settings.minAngle[1], 5 * dir, 180);
         }
         currentLine = 3;
 
@@ -216,9 +216,9 @@ void channelSett(int dir) {
     case 5:
       if (curMode == 1) {
         if (currentChannel == 7) {
-          incr(&settings.maxAngle[0], 10 * dir, 180);
+          incr(&settings.maxAngle[0], 5 * dir, 180);
         } else if (currentChannel == 8) {
-          incr(&settings.maxAngle[1], 10 * dir, 180);
+          incr(&settings.maxAngle[1], 5 * dir, 180);
         }
       }
       currentLine = 3;
@@ -353,7 +353,7 @@ void chSettingsSett(int dir) {
           bitWrite(channels[currentChannel].week, 4, ( (dir == 1) ? 1 : 0) );
           break;
         case 4:
-          incr(&PID[curPWMchannel].setpoint, dir / 10.0, 255);
+          incr(&PID[curPWMchannel].setpoint, dir * 0.1, 255);
           currentLine = 2;
           break;
         case 5: incr(&dawn[curPWMchannel].minV, dir * 10, 255);
