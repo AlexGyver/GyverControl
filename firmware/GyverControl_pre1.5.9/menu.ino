@@ -495,6 +495,9 @@ void controlTick() {
       drawArrow();
     }
     settingsTimer = millis();
+#if (USE_CO2 == 1)
+    CO2_rst = true;
+#endif
     if (backlState) {
       backlTimer = millis();      // сбросить таймаут дисплея
       if (currentChannel >= 0) {
@@ -519,6 +522,9 @@ void controlTick() {
 
   if (enc.isTurn()) {
     settingsTimer = millis();
+#if (USE_CO2 == 1)
+    CO2_rst = true;
+#endif
 
 #if (FAST_TURN == 1)
     byte fastTurn = enc.isFast() ? FAST_TURN_STEP : 1;
