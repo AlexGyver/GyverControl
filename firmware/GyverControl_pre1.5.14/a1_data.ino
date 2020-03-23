@@ -50,7 +50,7 @@
 
 // карта епром
 #define EEPR_KEY_ADDR 1022
-#define EEPR_KEY 34
+#define EEPR_KEY 36
 
 #define EEPR_CH 0
 #define EEPR_PID 320
