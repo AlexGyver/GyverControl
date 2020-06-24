@@ -1,0 +1,50 @@
+#######################################
+# Syntax Coloring Map HTU21D
+#######################################
+
+#######################################
+# Datatypes	(KEYWORD1)
+#######################################
+
+#######################################
+# Methods and Functions	(KEYWORD2)
+#######################################
+
+begin	KEYWORD2
+readHumidity	KEYWORD2
+readCompensatedHumidity	KEYWORD2
+readTemperatureAfterRH	KEYWORD2
+readTemperature	KEYWORD2
+setResolution	KEYWORD2
+softReset	KEYWORD2
+batteryStatus	KEYWORD2
+setHeater	KEYWORD2
+readFirmwareVersion	KEYWORD2
+readDeviceID	KEYWORD2
+
+#######################################
+# Instances	(KEYWORD2)
+#######################################
+
+HTU21D	KEYWORD2
+
+#######################################
+# Constants	(LITERAL1)
+#######################################
+
+HTU21D_ERROR	LITERAL1
+
+HTU21D_RES_RH12_TEMP14	LITERAL1
+HTU21D_RES_RH8_TEMP12	LITERAL1
+HTU21D_RES_RH10_TEMP13	LITERAL1
+HTU21D_RES_RH11_TEMP11	LITERAL1
+
+HTU21D_TRIGGER_HUMD_MEASURE_HOLD	LITERAL1
+HTU21D_TRIGGER_HUMD_MEASURE_NOHOLD	LITERAL1
+
+HTU21D_TRIGGER_TEMP_MEASURE_HOLD	LITERAL1
+HTU21D_TRIGGER_TEMP_MEASURE_NOHOLD	LITERAL1
+SI70xx_TEMP_READ_AFTER_RH_MEASURMENT	LITERAL1
+
+HTU21D_ON	LITERAL1
+HTU21D_OFF	LITERAL1

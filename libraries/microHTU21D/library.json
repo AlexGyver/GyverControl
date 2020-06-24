@@ -1,0 +1,18 @@
+{
+  "name":        "HTU21D",
+  "keywords":    "humidity, temperature, sht21, htu21d, si7021, i2c",
+  "description": "SHT21, HTU21D & Si70xx Digital Humidity & Temperature Sensor",
+  "authors":
+  {
+    "name":  "ejoyneering",
+    "email": "enjoyneering@protonmail.com"
+  },
+  "repository":
+  {
+    "type": "git",
+    "url":  "https://github.com/enjoyneering/HTU21D.git"
+  },
+  "version":    "1.2.1",
+  "frameworks": "arduino",
+  "platforms":  "*"
+}
