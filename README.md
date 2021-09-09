@@ -68,73 +68,73 @@
 ## Материалы и компоненты
 ### Ссылки оставлены на магазины, с которых я закупаюсь уже не один год
 Arduino NANO 328p – искать
-* https://ali.ski/tI7blh
-* https://ali.ski/O4yTxb
-* https://ali.ski/6_rFIS
-* https://ali.ski/gb92E-
+* https://ali.ski/OCB3g
+* https://ali.ski/3xnDr
+* https://ali.ski/Jg6II
+* https://ali.ski/Mvetd2
 Энкодер – искать
-* https://ali.ski/c-hjE
-* https://ali.ski/OygY3d
-* https://ali.ski/II_efl
-* Дисплей 2004 https://ali.ski/LTT9-
-* DS3231 мини https://ali.ski/dU04gz
-* Датчик т/вл воздуха BME280 (5V) https://ali.ski/S0luA
-* Драйвер привода https://ali.ski/1EhPr
+* https://ali.ski/plRbSV
+* https://ali.ski/Oj_54q
+* https://ali.ski/_3OBn
+* Дисплей 2004 https://ali.ski/R4S9d
+* DS3231 мини https://ali.ski/ba3vp
+* Датчик т/вл воздуха BME280 (5V) https://ali.ski/66Fb6
+* Драйвер привода https://ali.ski/J9aKo
 Датчики вл. почвы
 
-* Обычный https://ali.ski/m8BeF
-* Золотой https://ali.ski/-bsqJ
-* Ёмкостный https://ali.ski/M6VDH
+* Обычный https://ali.ski/eBINY
+* Золотой https://ali.ski/yJ7QoZ
+* Ёмкостный https://ali.ski/7on9m
 Аналоговые датчики
 
-* Освещённости https://ali.ski/Lnf83U
-* Термистор https://ali.ski/uW2Yr
-* Звука https://ali.ski/iRQ5N
-* ИК излучения https://ali.ski/osmF7u
-* Дождя https://ali.ski/lVpLJe
-* Уровня воды https://ali.ski/dx5WBl
-* Газоанализатор https://ali.ski/uPCLr
+* Освещённости https://ali.ski/iPlgCB
+* Термистор https://ali.ski/1LJzio
+* Звука https://ali.ski/xfkoz-
+* ИК излучения https://ali.ski/HzLw3
+* Дождя https://ali.ski/YNpbF
+* Уровня воды https://ali.ski/1W1UE
+* Газоанализатор https://ali.ski/sFq6Ui
 Модули реле
 
-* Обычные https://ali.ski/9HO–D
-* Твердотельные https://ali.ski/RXOMz
-* Одноканальное мощное SSR https://ali.ski/Q7p4F7
+* Обычные https://ali.ski/fPI0LA–D
+* Твердотельные https://ali.ski/tKNXy
+* Одноканальное мощное SSR https://ali.ski/wHmFh
 Сервоприводы
 
-* Малый (2 кг*см) https://ali.ski/A-9ge
-* Большой (13 кг*см) https://ali.ski/TCkbH
-* Большой (20 кг*см) https://ali.ski/6Zm1t
-* Очень большой (60 кг*см) https://ali.ski/TEndsx
+* Малый (2 кг*см) https://ali.ski/4ooo1
+* Большой (13 кг*см) https://ali.ski/8njdL
+* Большой (20 кг*см) https://ali.ski/TqGb9
+* Очень большой (60 кг*см) https://ali.ski/szxWaB
 Линейные приводы
 
-* Привод 100мм 12V (скорость я брал 45mm/s) http://ali.ski/nLdJOj
+* Привод 100мм 12V (скорость я брал 45mm/s) https://ali.ski/SSRGN
 Железки для теплицы
 
 Средняя помпа
-* https://ali.ski/XR-Nd
-* https://ali.ski/pnFE6
+* https://ali.ski/lsj8U7
+* https://ali.ski/PdwZZq
 Мощная помпа
-* https://ali.ski/pn_aq
-* https://ali.ski/LBRNq0
-* https://ali.ski/0nggzk
-* https://ali.ski/9yTPR
-* Клапан 1/2″ https://ali.ski/BLmah
+* https://ali.ski/mRfM9r
+* https://ali.ski/Eyxn_m
+* https://ali.ski/GMXFqY
+* https://ali.ski/iQUn8
+* Клапан 1/2″ https://ali.ski/7LLGH
 Лампочки с полным спектром
-* http://ali.ski/AXzAf
+* https://ali.ski/aBt_m9
 * ttp://ali.ski/8Qi8a0
-* Матрицы с полным спектром https://ali.ski/k-WPS6
-* Готовые полноспектровые светильники https://ali.ski/NHgOk
+* Матрицы с полным спектром https://ali.ski/Hus5TP
+* Готовые полноспектровые светильники https://ali.ski/7SwSO
 Разное
 
-* БП 5V 2A питание схемы https://ali.ski/uMcMWP
-* БП 12V 3A питание привода http://ali.ski/7iOfQn http://ali.ski/ygpCU  http://ali.ski/qrJ41
-* Кнопки искать https://ali.ski/PrsxZ
-* Кнопки NC http://ali.ski/GmyPb
-* Кнопки NO http://ali.ski/vk-rb
-* Концевик герметичный http://ali.ski/MTxcf http://ali.ski/g655sn
-* Колодки https://ali.ski/uQdWqO
-* Рейка контактная https://ali.ski/4n0EH
-* Рейка угловая http://fas.st/opqeGu
+* БП 5V 2A питание схемы https://ali.ski/K-jzh
+* БП 12V 3A питание привода https://ali.ski/MGBFu https://ali.ski/njmEV5  https://ali.ski/vL8VPn
+* Кнопки искать https://ali.ski/0XHLSV
+* Кнопки NC https://ali.ski/mEAzJ
+* Кнопки NO https://ali.ski/Rv3u5L
+* Концевик герметичный https://ali.ski/piKKYr https://ali.ski/pbXGui
+* Колодки https://ali.ski/ZK7qq
+* Рейка контактная https://ali.ski/mhYWXr
+* Рейка угловая https://ali.ski/RPjbwD
 * В наших магазинах
 
 * Рейка контактная https://www.chipdip.ru/product/pls-40
